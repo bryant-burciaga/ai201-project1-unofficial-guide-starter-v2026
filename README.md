@@ -160,7 +160,6 @@ I set the number in config.py to .520 because the closest any query got was .510
 | When is it best to use a bike, bus, rideshare, or walk according to the city_guide for Elder Ness? | Yes | .510 |
 | What is best place to stay in town during the winter time according to city_guide for Corry Vale? | Yes | .444 |
 | What does city_guide best recommendation for food when eating in the area amongst all these locations? | Yes | .496 |
-
 |What is the capital of Mongolia?  | No | .803 |
 | How do I change the oil in a diesel engine? | No | .891 |
 | Who won the 1994 World Cup? | No | .873 |
