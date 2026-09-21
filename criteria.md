@@ -26,6 +26,7 @@ contains the answer.
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
 
+I am asking specific questions around transportation, distances, recommendations, geography, and more that I believe city_guides includes enough context for. It has a lot of detailed paragraphs with that type of information, and its well organized with headers, so I expect this to have enough context to provide useful information. 
 ---
 
 ## 2. Every answer names a source
@@ -36,26 +37,33 @@ Every answer the system produces names at least one source document.
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
 
+This criterion is expected because there needs to be some verifiability and the corpus I utilized, city_guides, provides enough labeling and headings that it should not be that difficult to specifically reference where the asnwer is coming from accurately.
+
 ---
 
 ## 3. The relevance gate stops out-of-corpus questions
 
 When I ask a question my documents clearly don't cover, the relevance gate
 stops it and the system returns "I don't have enough information about that" —
-in at least 4 of 5 tries.
+in all 5 of 5 tries.
 
 <!-- The five questions are the ones in `OUT_OF_SCOPE` at the bottom of
      `questions.py`, and `run_eval.py` puts them through the gate and writes
      what happened into your run log. Swap them for your own if you'd rather —
      just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
 
+
 **Why this target:**
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
+This criterion is here because it should be clear: The information is contained in city_guides, yes or no, no in between. The information is organized well too so ff it doesn't exist then it should say it doesn't have enough information.
+
 ---
 
 ## 4. Something about your chunks
+
+The system produces chunks between the range between 100-124. No chunk is shorter than 100 characters since anything below that is likeley a heading with no context. Also, 4 out of 5 manually sampled chunks contain complete understandable thought without sentence being cut off at either end. 
 
 <!-- YOU WRITE THIS ONE.
 
@@ -72,12 +80,16 @@ in at least 4 of 5 tries.
 
 
 **Why this target:**
-
+This target was chosen because there are 8 headings per location guide and 14 locations for 8x14 = 112 chunks as a good guide of boundaries. Also, a minimum of 100 characters prevents headings from entering the retreiveal index, and because the guide is so well organized with headings most chunks should be coherent without any cut offs.
 
 
 ---
 
 ## 5. Your choice
+
+Chunks should be completed in under 10s when retrieved in at least 4 out of 5 in scope test questions. 
+
+
 
 <!-- YOU WRITE THIS ONE TOO.
 
@@ -91,7 +103,7 @@ in at least 4 of 5 tries.
 
 **Why this target:**
 
-
+This should be achievable because the corpus is relatively compact at around 100 chunks, +/- 12, has strong organization, clear headings, and should be relatively fast at retrieval and a 10s cut off allows for a reasonable wait time for end users. 
 
 ---
 
