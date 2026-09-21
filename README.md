@@ -27,7 +27,7 @@
 
      Milestone 5. -->
 
- Picked city_guides corpus because of its well detailed, and well organized information and structure. The questions this system answers are around different specific locations and how the weather, food, attractions, distances, and travel modes all play into the planning for a traveler coming into the area. Overall, should give a great 'real', but 'unofficial' guide for making the best out of traveling to these remote and rural areas.     
+ This runs a city_guides corpus to help inform users on their travels thanks to a helpful transportation guide in a fairly well-detailed, and well organized information and structured corpus. The questions this system answers are around different specific locations and how the weather, food, attractions, distances, and travel modes all play into the planning for a traveler coming into the area. Overall, should give a great 'real', but 'unofficial' guide for making the best out of traveling to these remote and rural areas.     
 
 ## Chunking Strategy
 
@@ -121,7 +121,7 @@ year-round.
 
 ## Driving
 
-Roads are good between the towns and poor on the approaches to both Kestrelford
+Roads are good between the towns and poor on the approaches to both Kestrelfor0d
 and Halden Bay. The Kestrelford approach is single-track with
 
 ## Sample Answer
@@ -130,11 +130,15 @@ and Halden Bay. The Kestrelford approach is single-track with
      visible. Milestone 4. -->
 
 **Question:**
+What does the Brightwater guide say about traveling during the Winter time?"
 
 **Answer:**
 
-```
-```
+Based on the provided documents, the transportation guide does not mention traveling during the winter time. However, *guide_seasons.md* notes that several riverside businesses in Brightwater close entirely from January to March.
+
+According to `guide_walking.md`, in winter you should add four minutes to any Brightwater walking estimate because the path past the pond ices over, and boots with real tread matter more than any other equipment. Additionally, `guide_seasons.md` notes that several riverside businesses in Brightwater close entirely from January to March during the winter.
+
+Sources retrieved: guide_regional_transport.md, guide_seasons.md, guide_walking.md
 
 **My relevance cutoff:**
 
@@ -147,9 +151,22 @@ and Halden Bay. The Kestrelford approach is single-track with
 
      Milestone 4. -->
 
+I set the number in config.py to .520 because the closest any query got was .510 from my in-scope corpus list. All out of scope questions were in the .8 range and above so I felt like this kept things tight and provided good answers.
+
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| What does the Brightwater guide say about traveling during the Winter time? |Yes| .480 |
+| What does the city_guide say is the best place to stay in when visiting Thornby Wells based on budget? | Yes | .354 |
+| When is it best to use a bike, bus, rideshare, or walk according to the city_guide for Elder Ness? | Yes | .510 |
+| What is best place to stay in town during the winter time according to city_guide for Corry Vale? | Yes | .444 |
+| What does city_guide best recommendation for food when eating in the area amongst all these locations? | Yes | .496 |
+
+|What is the capital of Mongolia?  | No | .803 |
+| How do I change the oil in a diesel engine? | No | .891 |
+| Who won the 1994 World Cup? | No | .873 |
+| What is the recommended dosage of ibuprofen for a headache? | No | .841 |
+| How do I write a for loop in Rust? | No | .820 |
+
 
 ## How I Used AI
 
@@ -163,8 +180,10 @@ and Halden Bay. The Kestrelford approach is single-track with
      Milestone 5. -->
 
 **1.**
+I asked perplexity with assistance in helping me to structure a question that didn't seem to be clear enough for the AI to pick up or or be structured correctly to meet the criteria. It was successful in helping to guide me.  
 
 **2.**
+I asked perplexity for guidance on how to think about the concept of chunks and overlaps. I had wrong mental model and it helped to clear up the right way to think about those concepts.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never

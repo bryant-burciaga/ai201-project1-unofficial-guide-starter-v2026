@@ -24,7 +24,7 @@ names a target of "4 of 5", and four of three is not a thing.
 QUESTIONS = [
     # {"question": "...", "expects": "..."},
     {"What does the Brightwater transportation guide say about traveling during the Winter time?": "", "Winter is cold and several riverside businesses close entirely from January to March.": ""},
-    {"What does the city_guide say is the best place to stay in when visiting Thornsby Wells  based on budget?": "", "	· The pump room is open and free, as is the Parking which is free for two hours everywhere in town.": ""},
+    {"What does the city_guide say is the best place to stay in when visiting Thornby Wells  based on budget?": "", "	· The pump room is open and free, as is the Parking which is free for two hours everywhere in town.": ""},
     {"When is it best to use a bike, bus, rideshare, or walk according to the city_guide for Elder Ness?": "", "Foot. There is one car park at the village and parking anywhere else on the headland is prohibited and enforced.": ""},
     {"What is best place to stay in town during the winter time according to city_guide for Corry Vale": "", "Camping permitted, but gets boggy in winter. 30 rooms in 2 pubs and farmhouses available, but booked months in advance.": ""},
     {"What does city_guide best recommendation for food when eating in the area amongst all these locations?": "", "Almost everywhere": ""},
