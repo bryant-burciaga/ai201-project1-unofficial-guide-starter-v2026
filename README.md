@@ -27,7 +27,7 @@
 
      Milestone 5. -->
 
- This runs a city_guides corpus to help inform users on their travels thanks to a helpful transportation guide in a fairly well-detailed, and well organized information and structured corpus. The questions this system answers are around different specific locations and how the weather, food, attractions, distances, and travel modes all play into the planning for a traveler coming into the area. Overall, should give a great 'real', but 'unofficial' guide for making the best out of traveling to these remote and rural areas.     
+ This is a RAG system that uses Google Gemini and a corpus of "unofficial" city guides from prior travelers made to help provide guidance and inform users on their travels thanks to a helpful transportation guide. The corpora this is structured around includes fairly well-detailed, and well organized information. The questions this system answers are around different specific locations and how the weather, food, attractions, distances, and travel modes all play into the planning for a traveler coming into the area. Overall, should give a great 'real', but 'unofficial' guide for making the best out of traveling to these remote and rural areas.     
 
 ## Chunking Strategy
 
