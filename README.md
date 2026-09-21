@@ -35,7 +35,7 @@
 450
 
 **Overlap:**
-80
+120
 
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
@@ -48,7 +48,7 @@
 
      Milestone 3. -->
 
-I chose a chunk size of 450 because that encompasses some of the largest paragraphs and sections of information given in the corpora for City Guides. An overlap of 50 also seem sufficient to provide even lenghtier sentences some overlap into the next paragraph for context. Originally, I had 24 as my overlap, but I changed my mind and made that larger after some consideration to ensure there is a bit more context into the next paragraph, especially where there are some lenghtier sentences. 
+I chose a chunk size of 450 because that encompasses some of the largest paragraphs and sections of information given in the corpora for City Guides. An overlap of 120 also seem sufficient to provide even lenghtier sentences some overlap into the next paragraph for context. Originally, I had 50 as my overlap, but I changed my mind and made that larger after some consideration to ensure there is a bit more context into the next paragraph, especially where there are some lenghtier sentences. 
 
 ## Sample Chunks
 
@@ -73,34 +73,20 @@ difficult and it is better to know in advance.
 **Thornby Wells** is the easiest town in the region. It is flat, compact, and
 everything is within three minutes of everything else. Parking is free for two
 hours anywhere in town and the station is central. The pump room and gardens
-are level throughout.
-
-**Marchwood** has a modern tram network with level boarding on all four lines,
-running every 8 minutes on weekdays. The city museum and covered market are both
-step-free. The distances between districts are the main consideration.
-
-**Brightwater** is level along the river and through the centre. The mill museum
-is step-free. The station is a 15-
+are level throughout
 
 
 **Chunk 2** — source: `guide_corry_vale.md#2 ` — produced by: `chunker.py::fallback_split`
 
-the second village is 12th century and always unlocked.
+. There is a farm shop at the valley mouth that sells bread, cheese and little else, and it closes at 4pm. Bring supplies; this is not a place with options.
+
+## What to see
+
+The valley itself is the attraction. The footpath network is dense and well marked, and a circuit taking in three of the four villages is about nine miles with 500 metres of ascent. The chapel in the second village is 12th century and always unlocked.
 
 ## Where to stay
 
-Perhaps thirty beds in the entire valley, spread across two pubs and a handful of farmhouse rooms. In summer these are booked months ahead. Camping is permitted on two marked fields and nowhere else.
-
-## When to go
-
-May to September. Outside those months the pub in the third village closes, the farm shop reduces its hours, and several footpaths become genuinely boggy rather than merely wet. The road is not gritted above the second village and is impassable in snow.
-
-## Practical notes
-
-Cash is still useful at the market and in smaller places, though cards are
-accepted almost everywhere now. Mobile coverage is good in the centre and
-patchy on the outskirts. The nearest full hospital is in Brightwater; there is
-a mino
+Perha
 
 **Chunk 3** — source: `guide_givens_mill.md#0 ` — produced by: `chunker.py::fallback_split`
 
@@ -110,25 +96,23 @@ Givens Mill is a village of 700 built around a working watermill that still grin
 
 ## Getting there
 
-No station and no bus on Sundays; four buses a day from Brightwater on weekdays, taking 30 minutes. Driving is 20 minutes. The village car park holds about forty cars and is full by 11am on summer Saturdays.
-
-## Getting around
-
-Everything is on one street along the river. The mill is at one end and the church at the other, eight minutes apart. The riverside path continues in both directions for as far as you want to walk.
-
-## Eat and drink
-
-A tearoom attached to the mill, open 10 to 4 daily except Tuesdays, which sells bread made from the flour grou
+No station and no bus on Sundays; four buses a day from Brightwater on weekdays, taking 30 minutes. Driving is 20 minutes. The village car park holds about forty cars and is full by 11am on summer Saturday
 
 
 **Chunk 4** — source: `guide_kestrelford.md#3  ` — produced by: `chunker.py::fallback_split`
 
-irts. The nearest full hospital is in Brightwater; there is
-a minor injuries unit locally with limited hours.
+und but is much reduced from November to February. August is busy with walkers. The single-track approach road is genuinely difficult in snow and the town can be cut off for a day or two most winters.
+
+## Practical notes
+
+Cash is still useful at the market and in smaller places, though cards are
+accepted almost everywhere now. Mobile coverage is good in the centre and
+patchy on the outskirts. The nearest full hospital is in Brightwater; there is
 
 **Chunk 5** — source: `guide_regional_transport.md#1` — produced by: `chunker.py::fallback_split`
 
-oncentrate on weekday daytimes. Sunday service is minimal to non-existent
+visitors. Services
+concentrate on weekday daytimes. Sunday service is minimal to non-existent
 outside the Brightwater town routes.
 
 The Kestrelford service is hourly on weekdays, two-hourly on Saturdays, and
@@ -138,18 +122,7 @@ year-round.
 ## Driving
 
 Roads are good between the towns and poor on the approaches to both Kestrelford
-and Halden Bay. The Kestrelford approach is single-track with passing places
-for the final eight minutes. The Halden Bay coast road is cut into the cliff
-and is slow rather than difficult.
-
-Parking is the constraint rather than driving. Both Halden Bay lots fill by
-10am on summer weekends. Kestrelford's lower car park is free and involves a
-steep walk up.
-
-## Walking and cycling
-
-The river path from Brightwater runs four miles
-
+and Halden Bay. The Kestrelford approach is single-track with
 
 ## Sample Answer
 
