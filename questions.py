@@ -48,4 +48,5 @@ OUT_OF_SCOPE = [
 
 def answered() -> list[dict]:
     """The questions you've actually filled in."""
+    print("Hello")
     return [q for q in QUESTIONS if q.get("question", "").strip()]
