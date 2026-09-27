@@ -283,11 +283,22 @@ Source: `guide_eating.md` and `guide_pellew_sands.md`
 
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunks contain the answer | MISSED |  |
+| 2 | Every answer names a source | MISSED |  |
+| 3 | Gate stops out-of-corpus questions | MET |  |
+| 4 | Chunk size (100–124 total, min 100 chars, 4/5 complete) | MISSED |  |
+| 5 | Answer returns in under 10s | MISSED |  |
+
+
+
+
+ | 1. Retrieved chunks contain the answer | 4 of 5 | 0/5 | 0/5 | 0/5 | MISSED | Missed because target required to have answers in retrieved chunks, and all 5 questions failed in 3 runs so this did not mee the target. However, some of the questions did provide a half-ish answer, but I still call this a fail/miss. |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 3/5 | 2/5 | MISSED | The target here required all 5 answers to name a source in every run, but only run 1 hit 5/5. Runs 2,3 only had 3/5 and 2/5 sources, so the target didn't hold. |
+| 3. Gate stops out-of-corpus questions | 5 of 5 | 5/5 | 5/5 | 5/5 | MET | This is a met because all 5 questions that weren't in the corpus were refused by the gate in its pass, so this matched target. |
+| 4. Chunk size (100–124 total, min 100 chars, 4/5 complete) | all pass | TBD | TBD | TBD | TBD | MISSED | Missed because it never fully tested this. |
+| 5. Answer returns in under 10s | all pass | TBD | TBD | TBD | MISSED | Missed because it never fully even tested this. |
+
+
 
 ## Diagnoses
 
