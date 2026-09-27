@@ -222,6 +222,54 @@ I asked perplexity for guidance on how to think about the concept of chunks and 
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
 
+
+
+### What does the Brightwater transportation guide say about traveling during the Winter time? — run 1
+
+- Best distance: 0.4808 (passed the gate)
+- Sources retrieved: guide_regional_transport.md, guide_seasons.md, guide_walking.md
+
+```
+Based on the provided documents, there is no specific Brightwater transportation guide mentioning winter travel. However, `guide_seasons.md` mentions that Brightwater carries on during the winter because it is kept occupied by the university. Additionally, `guide_walking.md` notes that in winter, four minutes should be added to any Brightwater walking estimate because the path past the pond ices over.
+```
+### What does the city_guide say is the best place to stay in when visiting Thornby Wells  based on budget? — run 1
+
+- Best distance: 0.3539 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_halden_bay.md, guide_pellew_sands.md, guide_thornby_wells.md, guide_walking.md
+
+```
+I do not have enough information to answer this question, as the documents do not mention specific hotels or places to stay based on budget in Thornby Wells (guide_thornby_wells.md).
+```
+
+### When is it best to use a bike, bus, rideshare, or walk according to the city_guide for Elder Ness? — run 1
+
+- Best distance: 0.5103 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_brightwater.md, guide_eating.md, guide_elder_ness.md, guide_halden_bay.md
+
+```
+I do not have enough information to answer this question. The provided documents do not mention when to use a bike, bus, rideshare, or walk in Elder Ness (and note that Elder Ness has no public transport, according to `guide_elder_ness.md` and `guide_accessibility.md`).
+```
+### What is best place to stay in town during the winter time according to city_guide for Corry Vale — run 1
+
+- Best distance: 0.4304 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_brightwater.md, guide_corry_vale.md, guide_halden_bay.md, guide_marchwood.md, guide_pellew_sands.md, guide_walking.md
+
+```
+I do not have enough information to answer this question. (Source: `guide_corry_vale.md`)
+```
+
+### What does city_guide best recommendation for food when eating in the area amongst all these locations? — run 1
+
+- Best distance: 0.4964 (passed the gate)
+- Sources retrieved: guide_corry_vale.md, guide_eating.md, guide_kestrelford.md, guide_pellew_sands.md
+
+```
+Based on the provided documents, almost everywhere in the region, the general pattern is that the good cooking is found one street back from where the visitors are, where prices are often lower (for example, Corry Lane is about a third less than Brightwater's riverside, Marine Terrace in Pellew Sands is roughly half the seafront price, and Halden Bay's harbour front is roughly double the price of Fell Street one level up). 
+
+Source: `guide_eating.md` and `guide_pellew_sands.md`
+```
+
+
 ## Verdicts
 
 <!-- MET or MISSED for each of the five, against the target you wrote last
