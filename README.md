@@ -212,11 +212,11 @@ I asked perplexity for guidance on how to think about the concept of chunks and 
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
+| 1. Retrieved chunks contain the answer | 4 of 5 |  |  |  |  |
 | 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 3. Gate stops out-of-corpus questions | 5 of 5 |  |  |  |  |
+| 4. Chunk size | all pass |  |  |  |  |
+| 5. Under 10 seconds | 4 of 5 |  |  |  |  |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
