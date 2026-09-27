@@ -287,16 +287,18 @@ Source: `guide_eating.md` and `guide_pellew_sands.md`
 | 2 | Every answer names a source | MISSED |  |
 | 3 | Gate stops out-of-corpus questions | MET |  |
 | 4 | Chunk size (100–124 total, min 100 chars, 4/5 complete) | MISSED |  |
-| 5 | Answer returns in under 10s | MISSED |  |
+| 5 | Answer returns in under 10s | MET |  |
 
 
 
 
- | 1. Retrieved chunks contain the answer | 4 of 5 | 0/5 | 0/5 | 0/5 | MISSED | Missed because target required to have answers in retrieved chunks, and all 5 questions failed in 3 runs so this did not mee the target. However, some of the questions did provide a half-ish answer, but I still call this a fail/miss. |
-| 2. Every answer names a source | 5 of 5 | 5/5 | 3/5 | 2/5 | MISSED | The target here required all 5 answers to name a source in every run, but only run 1 hit 5/5. Runs 2,3 only had 3/5 and 2/5 sources, so the target didn't hold. |
-| 3. Gate stops out-of-corpus questions | 5 of 5 | 5/5 | 5/5 | 5/5 | MET | This is a met because all 5 questions that weren't in the corpus were refused by the gate in its pass, so this matched target. |
-| 4. Chunk size (100–124 total, min 100 chars, 4/5 complete) | all pass | TBD | TBD | TBD | TBD | MISSED | Missed because it never fully tested this. |
-| 5. Answer returns in under 10s | all pass | TBD | TBD | TBD | MISSED | Missed because it never fully even tested this. |
+ 1.  Missed because target required to have answers in retrieved chunks, and all 5 questions failed in 3 runs so this did not mee the target. However, some of the questions did provide a half-ish answer, but I still call this a fail/miss. 
+2. The target here required all 5 answers to name a source in every run, but only run 1 hit 5/5. Runs 2,3 only had 3/5 and 2/5 sources, so the target didn't hold. 
+3. This met because all 5 questions that weren't in the corpus were refused by the gate in its pass, so this matched target. 
+4.  This is actually a Miss as well. This was revisited by running the python chunker.py file and seeing the chunks this was outputting. The result: 
+94 chunks, 408 characters on average (shortest 16, longest 450), produced by chunker.py::fallback_split . Meaning that the chunk sizes of 100-124 miss anyway since this is at 94 and also the shortest is 16, way less than 100 characters.
+
+5. Met because target was that 4/5 in-scope questions would be under 10s to determine, and across all 3 runs, all 5 questions were under 10s. Slowest response was 5.36 seconds. All met this criterion.
 
 
 
@@ -319,6 +321,14 @@ Source: `guide_eating.md` and `guide_pellew_sands.md`
      low, and which one you'd tighten and to what.
 
      Milestone 3. -->
+
+1. Criterion 1 - MISS. Stage of Failure: Generation (Thornby Wells) AND Retrieval (Corry Vale), Elder Ness. For the first question on Thornby Wells, I noticed the criterion has some spaces in the question that might be throwing things off, and also the retrieved chunks included sections from the "Where to Stay" section from the Thornby Wells guide. THat included "several small guesthouses" and "Prices are moderate and stable year-round", and reterived with a distance of 0.5421. The answer was in the context, but the model said "I do not have enough information" instead of inferring a budget recommendation from this language. This suggest the model is perhaps under-weighting lower ranked chunks OR the prompt generate.py is too conservative about answering an explicit, unambiguous piece of information". Additonally, however, for Corry Vale winter lodging question, I ran the python app.py retrieve directly on this question to inspect the raw chunks and saw that only 1/8 chunks returned even was looking at corry_vale as a source. That meant that finding the correct answer of where to say ("thirty beds across two pubs and farmhouse rooms") was not going to be found. Overall, this is a retrieval failure in this portion, not generation, because the model was never given the chunks it needed to properly answer the question. Further, for Elder Ness transport mode question, the source documents for guide_elder_ness and the "Getting Around" section direclty mention how being "On Foot. The Village is One Street" is the direct single chunk answer. This is a retrive issue because only 2/8 chunks were from this guide_elder_ness.md. In Summary, Criterion 1 failures are multiple in nature. 
+
+2. Criterion 2 - MISS. Stage of Failure: Generation. Every run is getting worse going from 5/5 to 3/5 to 2/5 in the citations its providing. Every single question comes back with some level of "I don't have enough information" and whne the model is asnwering with real information it does reference a source, but when it refuses its random/optional to name a source. This is a generation stage problem because it does not seem to have enough conviction in something to commit to it. 
+
+3. Criterion 4 - MISS. Stage of Failure: Chunking, After further analysis this is failure on various levels. Chunking strategy in README is listed as 450 in size and overlap of 120, but this is not what the criteria.md target says - that focuses on 100-124, min. of 100, so that is a mismatch. Further, the shortest chunks when running chunker.py is actually 16 and the chunks are listed at 94 not 100, with 408 char on average and shortest bing 16 and longest 450. This is a chunking stage failure.
+
+
 
 ## The Improvement
 
