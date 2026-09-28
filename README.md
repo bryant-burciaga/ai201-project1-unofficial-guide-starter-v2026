@@ -400,4 +400,4 @@ Criterion 1, 2, and 4 are still broken. I ran out of time, but if I had more tim
 
      Milestone 5. -->
 
-I would write 4th criteria differently and be wider-apertured in nature and open it up a bit more so that it could capture more information so it can find what its looking for and have confidence in that. 
+I would write 4th criteria differently and be wider-apertured in nature and open it up a bit more so that it could capture more information so it can find what its looking for and have confidence in that. That means matching the chunking strategy across README and the criteria, as well as expanding the chunk size overall to match what Chunker has stated - 94 chunks, with shortest at 16 and longest at 450 with a 408 average. The chunk size would shift and I think that would open things up a bit more. 
