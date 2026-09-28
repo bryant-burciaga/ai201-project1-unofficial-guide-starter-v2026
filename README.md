@@ -333,24 +333,32 @@ Source: `guide_eating.md` and `guide_pellew_sands.md`
 ## The Improvement
 
 **What I changed:**
+I added hybrid search to store.py. Previously it only returned Top-k by distance alone, and now it queries every chunks distance, seperates scores every chunk with BM25 keyword matching against hte question and combines these two rankings. There is still a real distance given so the threshold process is still working as well.
+
 
 **Why I picked it:**
 
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
 
+My diagnosis for Criterion 1 was that Corry Vale and Elder Ness both failed because the semantich search by itself lost the town's chunk with other guides' chunks as evidenced by only seeing 1/8 or 2/8 chunks even be related. That means that other generic vocabulary found in other non-appropriate guides were being used, incorectly. Added BM25 to score the literal words and the name of the place itself so it should pull the correct towns chucnk even when embedding distance alone isn't enough.
+
+
 ### Run Log — After
 
 <!-- Same format, same five criteria, three runs each.
      `python run_eval.py --label after` -->
 
+
+
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 0/5 | 0/5 | 0/5 | MISSED |
+| 2. Every answer names a source | 5 of 5 | 3/5 | 4/5 | 2/5 | MISSED |
+| 3. Gate stops out-of-corpus questions | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Chunk size (100–124, min 100, 4/5 complete) | all pass | — | — | — | MISSED (unchanged — chunking wasn't touched this milestone) |
+| 5. Answer returns in under 10s | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+
 
 **Did it help?**
 
@@ -360,6 +368,10 @@ Source: `guide_eating.md` and `guide_pellew_sands.md`
      tell.
 
      Milestone 4. -->
+
+Ever so slightly. Criterion 1 is still 0/5 in the before and the after. However, the sources listed in retrieve are a bit more focused on accessibility, walking, and Elder Ness. Much more relevant than the before showing some Elder Ness, but then also other guides. What that translates into for the after is that in one run it does mention: "The documents only state that Elder Ness has no public transport (guide_accessibility.md and guide_elder_ness.md) and that the walk to the lighthouse takes 25 minutes on shingle (guide_walking.md)." That is a substnatial improvement, despite the fact that prior to this message it still says: "Based on the provided documents, there is no mention of when it is best to use a bike, bus, or rideshare in Elder Ness, nor is there a document named "city_guide for Elder Ness." That keeps the overall scoring the same at 0/5 in all 3 runs for both the before and the after, but in the after it did show some slight improvement.
+
+
 
 ## What's Still Broken
 
@@ -371,9 +383,19 @@ Source: `guide_eating.md` and `guide_pellew_sands.md`
 
      Milestone 5. -->
 
+Criterion 1, 2, and 4 are still broken. I ran out of time, but if I had more time I would do the following:
+
+1. Criterion 1 - seems to be like a chunking issue - to fix what is both stated in the chunking strategy in README and the criteria so that they match, and also fixing it so that the chunks are larger and better fit what chunker.py is spitting out. Needs larger chunks. Secondly, going back and fixing any spacing or misspelling issues in original questions. 
+
+2. Criterion 2 - every answer should have more conviction and that could potentially mean expanding the search so that there is more context awareness and other tools to broaden context so that the AI has more confidence in its choice and thus rely more heavily on the correct sources and not degrade over time. I'd be curious about implementing a System One tool like Jev to help with that decision making. 
+
+3. Criterion 4 - changing chunk size to match accurately across Strategy and Criteria. Also, to be larger and match chunker.py needs. 
+
 ## What I'd Do Differently
 
 <!-- Knowing what you know now — which of your five criteria would you write
      differently, and why?
 
      Milestone 5. -->
+
+I would write 4th criteria differently and be wider-apertured in nature and open it up a bit more so that it could capture more information so it can find what its looking for and have confidence in that. 
