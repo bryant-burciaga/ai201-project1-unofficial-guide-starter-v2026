@@ -185,6 +185,8 @@ I asked perplexity with assistance in helping me to structure a question that di
 **2.**
 I asked perplexity for guidance on how to think about the concept of chunks and overlaps. I had wrong mental model and it helped to clear up the right way to think about those concepts.
 
+Updated to highlight how I used AI to help me implement the BM25 hybrid search strategy. 
+
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
      claims earns nothing.
