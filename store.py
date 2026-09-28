@@ -33,6 +33,43 @@ import config
 from chunker import Chunk
 
 
+
+import re
+from rank_bm25 import BM25Okapi
+
+_bm25_cache: dict[str, tuple] = {}  # collection name -> (bm25, ids)
+
+
+def _tokenize(text: str) -> list[str]:
+    return re.findall(r"[a-z0-9]+", text.lower())
+
+
+def _get_bm25(collection, name: str):
+    """
+    Build (once per collection) or reuse a BM25 index over every chunk.
+
+    94 chunks makes rebuilding cheap regardless — this cache just avoids
+    repeat work across the 15 calls a single run_eval.py pass makes.
+    """
+    cached = _bm25_cache.get(name)
+    if cached is not None:
+        return cached
+
+    everything = collection.get(include=["documents"])
+    ids = everything["ids"]
+    tokenized = [_tokenize(d) for d in everything["documents"]]
+    bm25 = BM25Okapi(tokenized)
+
+    cached = (bm25, ids)
+    _bm25_cache[name] = cached
+    return cached
+
+
+
+
+
+
+
 @dataclass
 class Result:
     """One retrieved chunk and how far it was from the question."""
@@ -185,9 +222,21 @@ def search(
     variant: str = "default",
 ) -> list[Result]:
     """
-    Retrieve the chunks closest in meaning to a question.
+    Retrieve the chunks closest to a question using hybrid search:
+    semantic (embedding) distance combined with BM25 keyword matching,
+    merged by Reciprocal Rank Fusion.
 
-    Returns them nearest-first, each with its distance.
+    Semantic-only search rewards shared generic vocabulary ("stay",
+    "winter", "bus") over an exact place-name match, so a question naming
+    one town plus a common attribute can lose to a different town's chunk
+    using similar wording. BM25 scores the literal words in the question —
+    including the place name — so it pulls the right town's chunk back up
+    even when embedding distance alone doesn't.
+
+    Returns nearest-first by semantic distance, and each Result's
+    `distance` is still the real cosine distance — fusion only changes
+    WHICH chunks make top_k, not what "distance" means downstream (the
+    gate is untouched).
     """
     top_k = top_k or config.TOP_K
     name = config.collection_name(corpus, variant)
@@ -199,24 +248,51 @@ def search(
             f"No index called '{name}'. Run `python app.py index` first."
         ) from exc
 
-    raw = collection.query(
-        query_embeddings=embed([question]),
-        n_results=min(top_k, collection.count()),
-    )
+    total = collection.count()
+    if total == 0:
+        return []
 
-    results: list[Result] = []
-    for text, meta, distance in zip(
-        raw["documents"][0], raw["metadatas"][0], raw["distances"][0]
-    ):
-        results.append(
-            Result(
-                text=text,
-                source=str(meta.get("source", "unknown")),
-                label=f"{meta.get('source', 'unknown')}#{meta.get('index', 0)}",
-                distance=float(distance),
-                produced_by=str(meta.get("produced_by", "unknown")),
-            )
+    # Semantic pass over EVERY chunk, so fusion has a complete ranking to
+    # work with, not just the top_k Chroma would have picked alone.
+    raw = collection.query(query_embeddings=embed([question]), n_results=total)
+    sem_ids = raw["ids"][0]
+    distance_by_id = dict(zip(sem_ids, raw["distances"][0]))
+    doc_by_id = dict(zip(sem_ids, raw["documents"][0]))
+    meta_by_id = dict(zip(sem_ids, raw["metadatas"][0]))
+    semantic_rank = {doc_id: rank for rank, doc_id in enumerate(sem_ids)}
+
+    # BM25 pass over the same chunks.
+    bm25, bm25_ids = _get_bm25(collection, name)
+    bm25_scores = bm25.get_scores(_tokenize(question))
+    bm25_order = sorted(range(len(bm25_ids)), key=lambda i: bm25_scores[i], reverse=True)
+    bm25_rank = {bm25_ids[i]: rank for rank, i in enumerate(bm25_order)}
+
+    # Reciprocal Rank Fusion — combines two differently-scaled rankings
+    # (cosine distance, BM25 score) without needing to normalize either.
+    RRF_K = 60
+    fused = [
+        (
+            1.0 / (RRF_K + semantic_rank[doc_id])
+            + 1.0 / (RRF_K + bm25_rank.get(doc_id, len(bm25_ids))),
+            doc_id,
         )
+        for doc_id in sem_ids
+    ]
+    fused.sort(key=lambda pair: pair[0], reverse=True)
+    chosen_ids = [doc_id for _, doc_id in fused[:top_k]]
+
+    results = [
+        Result(
+            text=doc_by_id[doc_id],
+            source=str(meta_by_id[doc_id].get("source", "unknown")),
+            label=f"{meta_by_id[doc_id].get('source', 'unknown')}#{meta_by_id[doc_id].get('index', 0)}",
+            distance=float(distance_by_id[doc_id]),
+            produced_by=str(meta_by_id[doc_id].get("produced_by", "unknown")),
+        )
+        for doc_id in chosen_ids
+    ]
+
+    results.sort(key=lambda r: r.distance)  # keep the nearest-first contract
     return results
 
 
